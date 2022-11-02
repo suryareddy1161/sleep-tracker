@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import {motion} from "framer-motion"
 import useLogin from '../hooks/useLogin'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
+import { Box } from '@mui/material';
 function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -17,23 +21,29 @@ function Login() {
         initial={{x: "-100vw"}}
         transition={{delay: 0.5}}
         >
-            <div className='text-center py-5 my-5'>
-                <h3 className='text-primary py-3'>Welcome To Login Page</h3>
-                <form onSubmit={handleLogin}>
-                    <div>
-                        <label>Email: </label>
-                        <input type="text" onChange={e => setEmail(e.target.value)}
+            <div className='text-center my-5'>
+                <form onSubmit={handleLogin} className="login">
+                    <h3>Login</h3>
+                    <Box margin="20px 0">
+                        <Typography>Email</Typography>
+                        <TextField type="text" 
+                         variant="standard"
+                        onChange={e => setEmail(e.target.value)}
                         value={email}
                         />
-                    </div>
-                    <div>
-                        <label>Password: </label>
-                        <input type="password" onChange={e => setPassword(e.target.value)}
+                    </Box>
+                    <Box>
+                        <Typography>Password</Typography>
+                        <TextField 
+                        id="standard-password-input"
+                        type="password"
+                        variant="standard" 
+                        onChange={e => setPassword(e.target.value)}
                         value={password}
                         />
-                    </div>
-                    <button>Submit</button>
-                    {error && <div className='error'>{error}</div>}
+                    </Box>
+                    <Button variant='contained' color='error' component="button" type='submit'>Submit</Button>
+                    {error && <Typography className='error'>{error}</Typography>}
                 </form>
             </div>
         </motion.div>
