@@ -1,16 +1,19 @@
 const express = require('express')
 const app = express();
 const morgan = require('morgan')
-const mongoose = require('mongoose')
+
 require("dotenv").config()
 
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(res => app.listen(process.env.PORT, () => {
-        console.log(`Sever is running on PORT ${process.env.PORT}`);
-        console.log("Connected to database")
-    }))
-    .catch(err => console.log(err))
+const dbConnect=require("./db");
+PORT=4000
 
+dbConnect(process.env.uri).then(()=>{
+    app.listen(PORT,()=>{
+        console.log(`db connected  server is running ${PORT}`)
+    })
+}).catch(err=>{
+    console.log(err)
+})
 
 app.use(morgan("dev"))
 app.use(express.json())   
